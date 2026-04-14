@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matrix LMS (Prototype)</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1>Matrix LMS</h1>
+        <p>BTEC Engineering Units (Prototype)</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="toolbar">
+        <input id="searchInput" type="search" placeholder="Search units..." />
+        <span id="unitCount"></span>
+      </section>
+
+      <section id="unitGrid" class="unit-grid" aria-live="polite"></section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">Prototype only, placeholder content.</div>
+    </footer>
+
+    <script src="units.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

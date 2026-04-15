@@ -11,7 +11,7 @@ function renderUnits(units) {
         <div class="card-body">
           <span class="unit-badge">${unit.code}</span>
           <h3>${unit.title}</h3>
-          <p>Click to view prototype unit content.</p>
+          <p>${unit.summary || "Prototype unit overview."}</p>
         </div>
       </a>`
     )
@@ -23,7 +23,7 @@ function renderUnits(units) {
 function applyFilter() {
   const term = searchInput.value.trim().toLowerCase();
   const filtered = BTEC_UNITS.filter((unit) =>
-    `${unit.code} ${unit.title}`.toLowerCase().includes(term)
+    `${unit.code} ${unit.title} ${unit.summary || ""}`.toLowerCase().includes(term)
   );
   renderUnits(filtered);
 }

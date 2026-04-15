@@ -163,6 +163,14 @@ const docs = [
   }
 ];
 
+const featureTicks = [
+  "Matrix Hardware Available",
+  "Matrix Software Free",
+  "Matrix Curriculum Mapped To Learning Outcomes Free",
+  "SCORM Compliant",
+  "Course Hours: 60 hours free"
+];
+
 const PLAYLIST_ID = "PLZonYDsrgLmcNqDHwAIUKlt4ZCHFO_rHd";
 const playlistVideos = [
   { id: "1iceY6lAKr0", title: "Introducing Fundamental Mechanics from Matrix TSL" },
@@ -227,6 +235,23 @@ function fillDocs(id, items) {
     .join("");
 }
 
+function renderFeatureTicks(id, items) {
+  const host = document.getElementById(id);
+  host.innerHTML = items
+    .map(
+      (item) => `
+      <li class="feature-item">
+        <span class="feature-tick">✓</span>
+        <span>${item}</span>
+      </li>`
+    )
+    .join("");
+
+  host.querySelectorAll(".feature-item").forEach((el, index) => {
+    setTimeout(() => el.classList.add("show"), 90 * index + 80);
+  });
+}
+
 const videoSlider = document.getElementById("videoSlider");
 const videoPlayer = document.getElementById("videoPlayer");
 
@@ -257,6 +282,7 @@ function renderVideoSlider() {
   setActiveVideo(playlistVideos[0].id, 0);
 }
 
+renderFeatureTicks("featureTicks", featureTicks);
 renderObjectives("objectivesContent");
 fillList("sowList", sow);
 document.getElementById("hardwareSummary").textContent = hardwareSummary;

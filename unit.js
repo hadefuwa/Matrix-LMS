@@ -210,18 +210,7 @@ const sowDownloads = [
   }
 ];
 
-const hardwareSummary = "This full set of equipment allows students to understand the principles of fundamental statics, materials and dynamics engineering systems in one portal set of equipment.";
-
-const hardware = [
-  "Statics fundamentals",
-  "Materials fundamentals",
-  "Dynamics fundamentals",
-  "Mechanisms fundamentals",
-  "Dynamics Plus",
-  "Mechanisms Plus"
-];
-
-const docs = [
+const BASE_DOCS = [
   {
     title: "Curriculum on Static forces for mechanical engineering teaching",
     ref: "CP6368",
@@ -245,22 +234,111 @@ const docs = [
   }
 ];
 
-const featureTicks = [
-  "Matrix Hardware Available",
-  "Matrix Software Free",
-  "Matrix Curriculum Mapped To Learning Outcomes Free",
-  "SCORM Compliant",
-  "Course Hours: 60 hours free"
-];
-
-const PLAYLIST_ID = "PLZonYDsrgLmcNqDHwAIUKlt4ZCHFO_rHd";
-const playlistVideos = [
+const BASE_PLAYLIST_ID = "PLZonYDsrgLmcNqDHwAIUKlt4ZCHFO_rHd";
+const BASE_VIDEOS = [
   { id: "1iceY6lAKr0", title: "Introducing Fundamental Mechanics from Matrix TSL" },
   { id: "VxfDRLughQg", title: "Fundamental Mechanics - Materials" },
   { id: "Cz5zJkafZo8", title: "Fundamental Mechanics - Dynamics" },
   { id: "7I_fW6juM40", title: "Fundamental Mechanics - Statics" },
   { id: "ZJf9ni8KNcI", title: "Introducing Mechanisms Fundamentals" },
   { id: "9vpu4dfIw90", title: "New to the Fundamental Mechanics range" }
+];
+
+const OFFERINGS = [
+  {
+    id: "offering-1",
+    label: "Matrix Offering 1",
+    hardwareSummary:
+      "This full set of equipment allows students to understand the principles of fundamental statics, materials and dynamics engineering systems in one portal set of equipment.",
+    hardware: [
+      "Statics fundamentals",
+      "Materials fundamentals",
+      "Dynamics fundamentals",
+      "Mechanisms fundamentals",
+      "Dynamics Plus",
+      "Mechanisms Plus"
+    ],
+    docs: BASE_DOCS,
+    playlistId: BASE_PLAYLIST_ID,
+    videos: BASE_VIDEOS,
+    course: {
+      description: "Launch the full online learning experience for this unit.",
+      label: "Go To Online Course Viewer",
+      url: "https://holopoint1.github.io/LMS/"
+    }
+  },
+  {
+    id: "offering-2",
+    label: "Matrix Offering 2",
+    hardwareSummary: "Extended package with applied automation and advanced diagnostics resources for the same unit outcomes.",
+    hardware: [
+      "Mechanisms Plus",
+      "Dynamics Plus",
+      "PLC trainer essentials",
+      "Sensors and instrumentation starter kit",
+      "Condition monitoring add-on"
+    ],
+    docs: [
+      ...BASE_DOCS,
+      {
+        title: "Automation and Controls Primer",
+        ref: "CP4015",
+        url: "https://www.matrixtsl.com/wp-content/uploads/2026/03/CP1505-Dynamics-Fundamentals.pdf",
+        summary: "Starter guide for introducing automation and control topics within workshop delivery.",
+        suitableFor: ["FM3935", "FM9458-2"]
+      }
+    ],
+    playlistId: BASE_PLAYLIST_ID,
+    videos: [
+      ...BASE_VIDEOS,
+      { id: "i4du9N_89iE", title: "Matrix TSL: Automation Systems Overview" }
+    ],
+    course: {
+      description: "Launch the online course bundle aligned to Matrix Offering 2.",
+      label: "Go To Offering 2 Course",
+      url: "https://holopoint1.github.io/LMS/"
+    }
+  },
+  {
+    id: "offering-3",
+    label: "Matrix Offering 3",
+    hardwareSummary: "Comprehensive package combining core mechanics, advanced manufacturing, and maintenance diagnostics resources.",
+    hardware: [
+      "Statics fundamentals",
+      "Materials fundamentals",
+      "CNC and CAM training module",
+      "Maintenance and fault-finding trainer",
+      "Industrial process control toolkit"
+    ],
+    docs: [
+      ...BASE_DOCS,
+      {
+        title: "CNC and Manufacturing Delivery Notes",
+        ref: "CP4023",
+        url: "https://www.matrixtsl.com/wp-content/uploads/2026/03/CP6368-Statics-Fundamentals.pdf",
+        summary: "Delivery guidance for CAD/CAM and production-focused workshops.",
+        suitableFor: ["FM1883", "FM1292"]
+      }
+    ],
+    playlistId: BASE_PLAYLIST_ID,
+    videos: [
+      ...BASE_VIDEOS,
+      { id: "2J6fHnfdQwY", title: "Matrix TSL: Industry 4.0 and Maintenance Pathways" }
+    ],
+    course: {
+      description: "Launch the online course bundle aligned to Matrix Offering 3.",
+      label: "Go To Offering 3 Course",
+      url: "https://holopoint1.github.io/LMS/"
+    }
+  }
+];
+
+const featureTicks = [
+  "Matrix Hardware Available",
+  "Matrix Software Free",
+  "Matrix Curriculum Mapped To Learning Outcomes Free",
+  "SCORM Compliant",
+  "Course Hours: 60 hours free"
 ];
 
 function fillList(id, items) {
@@ -402,18 +480,26 @@ function renderFeatureTicks(id, items) {
   });
 }
 
+const offeringTabs = document.getElementById("offeringTabs");
 const videoSlider = document.getElementById("videoSlider");
 const videoPlayer = document.getElementById("videoPlayer");
+const courseDescription = document.getElementById("courseDescription");
+const courseLink = document.getElementById("courseLink");
+
+let activeOffering = OFFERINGS[0];
+let activePlaylistId = OFFERINGS[0].playlistId;
 
 function setActiveVideo(videoId, index) {
-  videoPlayer.src = `https://www.youtube.com/embed/${videoId}?list=${PLAYLIST_ID}&index=${index}&rel=0`;
+  videoPlayer.src = `https://www.youtube.com/embed/${videoId}?list=${activePlaylistId}&index=${index}&rel=0`;
   document.querySelectorAll(".video-thumb").forEach((el) => {
     el.classList.toggle("active", el.dataset.id === videoId);
   });
 }
 
-function renderVideoSlider() {
-  videoSlider.innerHTML = playlistVideos
+function renderVideoSlider(videos, playlistId) {
+  activePlaylistId = playlistId;
+
+  videoSlider.innerHTML = videos
     .map(
       (video, index) => `
       <button class="video-thumb${index === 0 ? " active" : ""}" data-id="${video.id}" data-index="${index}" aria-label="Play ${video.title}">
@@ -423,13 +509,59 @@ function renderVideoSlider() {
     )
     .join("");
 
-  videoSlider.addEventListener("click", (event) => {
-    const btn = event.target.closest(".video-thumb");
-    if (!btn) return;
-    setActiveVideo(btn.dataset.id, Number(btn.dataset.index));
+  if (!videos.length) {
+    videoPlayer.removeAttribute("src");
+    return;
+  }
+
+  setActiveVideo(videos[0].id, 0);
+}
+
+videoSlider.addEventListener("click", (event) => {
+  const btn = event.target.closest(".video-thumb");
+  if (!btn) return;
+  setActiveVideo(btn.dataset.id, Number(btn.dataset.index));
+});
+
+function setOffering(offeringId) {
+  activeOffering = OFFERINGS.find((item) => item.id === offeringId) || OFFERINGS[0];
+
+  document.querySelectorAll(".offering-tab-btn").forEach((btn) => {
+    const selected = btn.dataset.offering === activeOffering.id;
+    btn.classList.toggle("active", selected);
+    btn.setAttribute("aria-selected", selected ? "true" : "false");
   });
 
-  setActiveVideo(playlistVideos[0].id, 0);
+  document.getElementById("hardwareSummary").textContent = activeOffering.hardwareSummary;
+  fillList("hardwareList", activeOffering.hardware);
+  fillDocs("docsList", activeOffering.docs);
+  renderVideoSlider(activeOffering.videos, activeOffering.playlistId);
+  courseDescription.textContent = activeOffering.course.description;
+  courseLink.textContent = activeOffering.course.label;
+  courseLink.href = activeOffering.course.url;
+}
+
+function renderOfferingTabs() {
+  offeringTabs.innerHTML = OFFERINGS
+    .map(
+      (offering, index) => `
+      <button
+        class="offering-tab-btn${index === 0 ? " active" : ""}"
+        type="button"
+        role="tab"
+        aria-selected="${index === 0 ? "true" : "false"}"
+        data-offering="${offering.id}"
+      >
+        ${offering.label}
+      </button>`
+    )
+    .join("");
+
+  offeringTabs.addEventListener("click", (event) => {
+    const btn = event.target.closest(".offering-tab-btn");
+    if (!btn) return;
+    setOffering(btn.dataset.offering);
+  });
 }
 
 renderFeatureTicks("featureTicks", featureTicks);
@@ -437,7 +569,5 @@ renderObjectives("objectivesContent");
 setupCollapsible("objectivesContent", "objectivesToggle", "objectives-collapsed");
 renderSow("sowContent");
 setupCollapsible("sowContent", "sowToggle", "sow-collapsed");
-document.getElementById("hardwareSummary").textContent = hardwareSummary;
-fillList("hardwareList", hardware);
-fillDocs("docsList", docs);
-renderVideoSlider();
+renderOfferingTabs();
+setOffering(OFFERINGS[0].id);

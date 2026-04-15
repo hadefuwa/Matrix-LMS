@@ -99,6 +99,35 @@ body {
   color: #fff;
 }
 
+.offering-panel p {
+  margin-top: -0.15rem;
+  color: var(--muted);
+}
+
+.offering-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+}
+
+.offering-tab-btn {
+  border: 1px solid var(--border);
+  background: var(--panel-2);
+  color: var(--text);
+  border-radius: 0.65rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.offering-tab-btn.active {
+  background: #1f6bd1;
+  border-color: #1f6bd1;
+  color: #fff;
+}
+
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -676,6 +705,15 @@ li {
   .tab-btn {
     flex: 1;
     text-align: center;
+  }
+
+  .offering-tabs {
+    flex-direction: column;
+  }
+
+  .offering-tab-btn {
+    width: 100%;
+    text-align: left;
   }
 
   .toolbar {

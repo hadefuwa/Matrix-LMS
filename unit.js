@@ -52,20 +52,38 @@ function fillList(id, items) {
   document.getElementById(id).innerHTML = items.map((item) => `<li>${item}</li>`).join("");
 }
 
-function fillVideoList(id, items) {
-  document.getElementById(id).innerHTML = items
-    .map((video, index) => {
-      const url = `https://www.youtube.com/watch?v=${video.id}&list=${PLAYLIST_ID}&index=${index + 1}`;
-      return `<li><a href="${url}" target="_blank" rel="noopener noreferrer">${video.title}</a></li>`;
-    })
-    .join("");
+const videoSlider = document.getElementById("videoSlider");
+const videoPlayer = document.getElementById("videoPlayer");
+
+function setActiveVideo(videoId, index) {
+  videoPlayer.src = `https://www.youtube.com/embed/${videoId}?list=${PLAYLIST_ID}&index=${index}&rel=0`;
+  document.querySelectorAll(".video-thumb").forEach((el) => {
+    el.classList.toggle("active", el.dataset.id === videoId);
+  });
 }
 
-const playlistEmbed = document.getElementById("playlistEmbed");
-playlistEmbed.src = `https://www.youtube.com/embed/videoseries?list=${PLAYLIST_ID}`;
+function renderVideoSlider() {
+  videoSlider.innerHTML = playlistVideos
+    .map(
+      (video, index) => `
+      <button class="video-thumb${index === 0 ? " active" : ""}" data-id="${video.id}" data-index="${index}" aria-label="Play ${video.title}">
+        <img src="https://i.ytimg.com/vi/${video.id}/mqdefault.jpg" alt="${video.title}" loading="lazy" />
+        <span>${video.title}</span>
+      </button>`
+    )
+    .join("");
+
+  videoSlider.addEventListener("click", (event) => {
+    const btn = event.target.closest(".video-thumb");
+    if (!btn) return;
+    setActiveVideo(btn.dataset.id, Number(btn.dataset.index));
+  });
+
+  setActiveVideo(playlistVideos[0].id, 0);
+}
 
 fillList("objectivesList", objectives);
 fillList("sowList", sow);
 fillList("hardwareList", hardware);
 fillList("manualsList", manuals);
-fillVideoList("videosList", playlistVideos);
+renderVideoSlider();

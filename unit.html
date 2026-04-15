@@ -46,17 +46,19 @@
       <section class="panel">
         <h2>Related Videos (Playlist)</h2>
         <p>Shared playlist for all units in this prototype.</p>
+
+        <div id="videoSlider" class="video-slider" aria-label="Playlist videos"></div>
+
         <div class="video-embed">
           <iframe
-            id="playlistEmbed"
-            title="Unit playlist"
+            id="videoPlayer"
+            title="Selected unit video"
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerpolicy="strict-origin-when-cross-origin"
             allowfullscreen
           ></iframe>
         </div>
-        <ol id="videosList" class="video-list"></ol>
       </section>
     </main>
 

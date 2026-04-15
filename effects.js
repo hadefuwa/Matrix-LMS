@@ -1,78 +1,128 @@
 (() => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const revealTargets = [
-    ...document.querySelectorAll(".site-header, .feature-banner, .unit-hero, .panel, .card, .site-footer")
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const tickEls = [...document.querySelectorAll(".feature-tick")];
+  const buttonEls = [
+    ...document.querySelectorAll(
+      ".tab-btn, .offering-tab-btn, .download-btn, .course-btn, .scorm-btn, .quote-btn, .contact-card"
+    )
   ];
-  const pulseTargets = document.querySelectorAll(
-    ".tab-btn, .offering-tab-btn, .download-btn, .course-btn, .scorm-btn, .quote-btn"
-  );
 
-  if (!revealTargets.length || prefersReducedMotion) return;
+  const safeAnimate = (el, keyframes, options) => {
+    if (!el || !el.animate || prefersReducedMotion) return;
+    try {
+      el.animate(keyframes, options);
+    } catch {
+      // ignore animation failures
+    }
+  };
 
-  const fallbackPulse = () => {
-    pulseTargets.forEach((el) => {
+  const setupTabGlider = () => {
+    const wrap = document.querySelector(".unit-tabs");
+    if (!wrap) return;
+
+    const tabs = [...wrap.querySelectorAll(".tab-btn")];
+    if (!tabs.length) return;
+
+    let glider = wrap.querySelector(".tab-glider");
+    if (!glider) {
+      glider = document.createElement("span");
+      glider.className = "tab-glider";
+      wrap.appendChild(glider);
+    }
+
+    const move = () => {
+      const active = wrap.querySelector(".tab-btn.active") || tabs[0];
+      if (!active) return;
+      const parentRect = wrap.getBoundingClientRect();
+      const activeRect = active.getBoundingClientRect();
+      const x = activeRect.left - parentRect.left;
+      const width = activeRect.width;
+
+      if (prefersReducedMotion) {
+        glider.style.transform = `translateX(${x}px)`;
+        glider.style.width = `${width}px`;
+        return;
+      }
+
+      safeAnimate(
+        glider,
+        [
+          { transform: glider.style.transform || `translateX(${x}px)`, width: glider.style.width || `${width}px` },
+          { transform: `translateX(${x}px)`, width: `${width}px` }
+        ],
+        { duration: 320, easing: "cubic-bezier(0.22, 1, 0.36, 1)", fill: "forwards" }
+      );
+      glider.style.transform = `translateX(${x}px)`;
+      glider.style.width = `${width}px`;
+    };
+
+    move();
+    wrap.addEventListener("click", (event) => {
+      if (event.target.closest(".tab-btn")) {
+        requestAnimationFrame(move);
+      }
+    });
+    window.addEventListener("resize", move, { passive: true });
+  };
+
+  const setupButtons = () => {
+    buttonEls.forEach((el) => {
       el.addEventListener("click", () => {
-        el.animate(
-          [{ transform: "scale(1)" }, { transform: "scale(0.97)" }, { transform: "scale(1.02)" }, { transform: "scale(1)" }],
+        safeAnimate(
+          el,
+          [
+            { transform: "scale(1)" },
+            { transform: "scale(0.97)" },
+            { transform: "scale(1.02)" },
+            { transform: "scale(1)" }
+          ],
           { duration: 300, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)" }
         );
       });
+
+      if (canHover && !prefersReducedMotion) {
+        el.addEventListener("pointerenter", () => {
+          safeAnimate(el, [{ transform: "translateY(0)" }, { transform: "translateY(-2px)" }], {
+            duration: 180,
+            easing: "ease-out",
+            fill: "forwards"
+          });
+        });
+        el.addEventListener("pointerleave", () => {
+          safeAnimate(el, [{ transform: "translateY(-2px)" }, { transform: "translateY(0)" }], {
+            duration: 180,
+            easing: "ease-out",
+            fill: "forwards"
+          });
+        });
+      }
     });
   };
 
-  const fallbackReveal = () => {
-    revealTargets.forEach((el, index) => {
-      el.animate(
+  const setupTicks = () => {
+    if (prefersReducedMotion) return;
+
+    tickEls.forEach((tick, index) => {
+      safeAnimate(
+        tick,
         [
-          { opacity: 0, transform: "translateY(12px)", filter: "blur(3px)" },
-          { opacity: 1, transform: "translateY(0)", filter: "blur(0px)" }
+          { transform: "scale(1) rotate(0deg)", boxShadow: "0 0 0 0 rgba(56, 198, 117, 0.35)" },
+          { transform: "scale(1.11) rotate(-6deg)", boxShadow: "0 0 0 8px rgba(56, 198, 117, 0.08)" },
+          { transform: "scale(1) rotate(0deg)", boxShadow: "0 0 0 0 rgba(56, 198, 117, 0.2)" }
         ],
         {
-          duration: 520,
-          delay: Math.min(index * 45, 360),
-          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-          fill: "both"
+          duration: 1800,
+          delay: index * 120,
+          easing: "ease-in-out",
+          iterations: Infinity
         }
       );
     });
-
-    fallbackPulse();
   };
 
-  import("https://cdn.jsdelivr.net/npm/motion@11.18.2/+esm")
-    .then(({ animate, inView, stagger }) => {
-      revealTargets.forEach((el, index) => {
-        const delay = Math.min(index * 0.04, 0.34);
-
-        inView(
-          el,
-          () => {
-            animate(
-              el,
-              { opacity: [0, 1], y: [12, 0], filter: ["blur(3px)", "blur(0px)"] },
-              { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }
-            );
-          },
-          { amount: 0.15, margin: "0px 0px -40px 0px" }
-        );
-      });
-
-      const featureItems = document.querySelectorAll(".feature-item");
-      if (featureItems.length) {
-        animate(
-          featureItems,
-          { opacity: [0, 1], y: [8, 0], scale: [0.99, 1] },
-          { duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: stagger(0.05, { startDelay: 0.08 }) }
-        );
-      }
-
-      pulseTargets.forEach((el) => {
-        el.addEventListener("click", () => {
-          animate(el, { scale: [1, 0.97, 1.02, 1] }, { duration: 0.3, ease: [0.34, 1.56, 0.64, 1] });
-        });
-      });
-    })
-    .catch(() => {
-      fallbackReveal();
-    });
+  setupTabGlider();
+  setupButtons();
+  setupTicks();
 })();

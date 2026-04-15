@@ -119,12 +119,15 @@ body > * {
 
 .unit-tabs {
   display: inline-flex;
-  gap: 0.4rem;
+  gap: 0.35rem;
   background: #e5eef9;
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 0.28rem;
   margin: 1rem 0 0.2rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .tab-btn {
@@ -133,13 +136,29 @@ body > * {
   color: #35506f;
   border-radius: 999px;
   padding: 0.45rem 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: color 0.2s ease;
 }
 
 .tab-btn.active {
-  background: #1f6bd1;
-  color: #fff;
+  background: transparent;
+  color: #ffffff;
+}
+
+.tab-glider {
+  position: absolute;
+  left: 0;
+  top: 0.28rem;
+  height: calc(100% - 0.56rem);
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #2f95ff, #1f6bd1);
+  box-shadow: 0 8px 18px rgba(41, 132, 225, 0.35);
+  transform: translateX(0);
+  z-index: 1;
 }
 
 .offering-panel p {
@@ -156,19 +175,21 @@ body > * {
 
 .offering-tab-btn {
   border: 1px solid var(--border);
-  background: var(--panel-2);
+  background: linear-gradient(160deg, #f6fbff, #e9f3ff);
   color: var(--text);
   border-radius: 0.65rem;
   padding: 0.5rem 0.8rem;
   font-size: 0.86rem;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .offering-tab-btn.active {
-  background: #1f6bd1;
+  background: linear-gradient(135deg, #2f95ff, #1f6bd1);
   border-color: #1f6bd1;
   color: #fff;
+  box-shadow: 0 8px 20px rgba(38, 118, 201, 0.35);
 }
 
 .toolbar {
@@ -354,11 +375,11 @@ input[type="search"] {
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: #2ed573;
-  color: #062714;
+  background: linear-gradient(145deg, #42da87, #1fb65e);
+  color: #ffffff;
   font-weight: 900;
   font-size: 0.82rem;
-  box-shadow: 0 0 0 3px rgba(46, 213, 115, 0.2);
+  box-shadow: 0 0 0 3px rgba(46, 213, 115, 0.22), 0 6px 14px rgba(26, 138, 72, 0.28);
 }
 
 .feature-item span:last-child {

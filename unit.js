@@ -248,6 +248,10 @@ const OFFERINGS = [
   {
     id: "offering-1",
     label: "Matrix Offering 1",
+    image: {
+      src: "https://www.matrixtsl.com/wp-content/uploads/elementor/thumbs/Fundamental-Mechananics-Beauty-Shot-r3dsaoku30ll1dub2a9igiadth8egm9ubi52vt6noa.png",
+      alt: "Matrix Offering 1 equipment"
+    },
     hardwareSummary:
       "This full set of equipment allows students to understand the principles of fundamental statics, materials and dynamics engineering systems in one portal set of equipment.",
     hardware: [
@@ -270,6 +274,10 @@ const OFFERINGS = [
   {
     id: "offering-2",
     label: "Matrix Offering 2",
+    image: {
+      src: "assets/products/matrix-offering-2.webp",
+      alt: "Matrix Offering 2 Polariscope product"
+    },
     hardwareSummary: "Extended package with applied automation and advanced diagnostics resources for the same unit outcomes.",
     hardware: [
       "Mechanisms Plus",
@@ -302,6 +310,10 @@ const OFFERINGS = [
   {
     id: "offering-3",
     label: "Matrix Offering 3",
+    image: {
+      src: "assets/products/matrix-offering-3.webp",
+      alt: "Matrix Offering 3 Structures complete set"
+    },
     hardwareSummary: "Comprehensive package combining core mechanics, advanced manufacturing, and maintenance diagnostics resources.",
     hardware: [
       "Statics fundamentals",
@@ -481,6 +493,7 @@ function renderFeatureTicks(id, items) {
 }
 
 const offeringTabs = document.getElementById("offeringTabs");
+const hardwareImage = document.getElementById("hardwareImage");
 const videoSlider = document.getElementById("videoSlider");
 const videoPlayer = document.getElementById("videoPlayer");
 const courseDescription = document.getElementById("courseDescription");
@@ -533,6 +546,10 @@ function setOffering(offeringId) {
   });
 
   document.getElementById("hardwareSummary").textContent = activeOffering.hardwareSummary;
+  if (activeOffering.image) {
+    hardwareImage.src = activeOffering.image.src;
+    hardwareImage.alt = activeOffering.image.alt || activeOffering.label;
+  }
   fillList("hardwareList", activeOffering.hardware);
   fillDocs("docsList", activeOffering.docs);
   renderVideoSlider(activeOffering.videos, activeOffering.playlistId);

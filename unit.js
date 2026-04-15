@@ -185,15 +185,15 @@ const sowPlan = {
 
 const sowDownloads = [
   {
-    title: "Engineering Mechanics Slides",
+    title: "📊 Download Engineering Mechanics Slides",
     file: "assets/19GES28 - Engineering Mechanics.pdf"
   },
   {
-    title: "Applied Mechanics Presentation",
+    title: "📊 Download Applied Mechanics Presentation",
     file: "assets/PPT Applied Mechanics.pdf"
   },
   {
-    title: "Engineering Mechanics PPT Pack",
+    title: "📊 Download Engineering Mechanics PPT Pack",
     file: "assets/Engg-Mechanics-ppt-by-ujjval.pdf"
   }
 ];
@@ -323,7 +323,7 @@ function renderSow(id) {
     <div class="download-row">
       ${sowDownloads
         .map(
-          (doc) => `<a class="download-btn" href="${encodeURI(doc.file)}" download>${doc.title} ⬇</a>`
+          (doc) => `<a class="download-btn" href="${encodeURI(doc.file)}" download>${doc.title}</a>`
         )
         .join("")}
     </div>

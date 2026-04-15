@@ -36,10 +36,28 @@ const hardware = [
   "Mechanisms Plus"
 ];
 
-const manuals = [
-  "Hardware user guide (placeholder)",
-  "Tutor quick-start guide (placeholder)",
-  "Health and safety checklist (placeholder)"
+const docs = [
+  {
+    title: "Curriculum on Static forces for mechanical engineering teaching",
+    ref: "CP6368",
+    url: "https://www.matrixtsl.com/wp-content/uploads/2026/03/CP6368-Statics-Fundamentals.pdf",
+    summary: "Statics fundamentals curriculum document.",
+    suitableFor: ["FM1883", "FM9458-2"]
+  },
+  {
+    title: "Curriculum on Dynamic forces for mechanical engineering teaching",
+    ref: "CP1505",
+    url: "https://www.matrixtsl.com/wp-content/uploads/2026/03/CP1505-Dynamics-Fundamentals.pdf",
+    summary: "Dynamics fundamentals curriculum document.",
+    suitableFor: ["FM3935", "FM9458-2"]
+  },
+  {
+    title: "Materials Fundamentals",
+    ref: "CP0876",
+    url: "https://www.matrixtsl.com/wp-content/uploads/2026/03/CP0876-Materials-Fundamentals.pdf",
+    summary: "Learn about the behaviour of material properties under different types of forces.",
+    suitableFor: ["FM1292", "FM5498-2"]
+  }
 ];
 
 const PLAYLIST_ID = "PLZonYDsrgLmcNqDHwAIUKlt4ZCHFO_rHd";
@@ -54,6 +72,20 @@ const playlistVideos = [
 
 function fillList(id, items) {
   document.getElementById(id).innerHTML = items.map((item) => `<li>${item}</li>`).join("");
+}
+
+function fillDocs(id, items) {
+  document.getElementById(id).innerHTML = items
+    .map(
+      (doc) => `
+      <li>
+        <a href="${doc.url}" target="_blank" rel="noopener noreferrer">${doc.title}</a>
+        <div><strong>REF:</strong> ${doc.ref}</div>
+        <div>${doc.summary}</div>
+        <div><strong>Suitable for:</strong> ${doc.suitableFor.map((s) => `<code>${s}</code>`).join(" ")}</div>
+      </li>`
+    )
+    .join("");
 }
 
 const videoSlider = document.getElementById("videoSlider");
@@ -90,5 +122,5 @@ fillList("objectivesList", objectives);
 fillList("sowList", sow);
 document.getElementById("hardwareSummary").textContent = hardwareSummary;
 fillList("hardwareList", hardware);
-fillList("manualsList", manuals);
+fillDocs("docsList", docs);
 renderVideoSlider();

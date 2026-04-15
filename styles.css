@@ -220,6 +220,36 @@ li {
   display: block;
 }
 
+.docs-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.docs-list li {
+  margin-bottom: 0.9rem;
+}
+
+.docs-list a {
+  color: #9fd0ff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.docs-list a:hover {
+  text-decoration: underline;
+}
+
+.docs-list code {
+  display: inline-block;
+  background: #263548;
+  border: 1px solid #324b66;
+  color: #d7ebff;
+  border-radius: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  margin-right: 0.3rem;
+  font-size: 0.82rem;
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
   color: var(--muted);

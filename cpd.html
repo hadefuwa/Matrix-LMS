@@ -21,21 +21,90 @@
     </header>
 
     <main class="container unit-layout">
-      <section class="panel cpd-panel">
-        <h2>3 Hour CPD Course</h2>
+      <section class="panel cpd-panel cpd-course">
+        <span class="cpd-pill">3 Hour CPD Course</span>
+        <h2>Matrix Fundamental Mechanics CPD</h2>
         <p>
-          Complete our 3 hour CPD course and receive a Matrix certificate to support your continuing professional
-          development.
+          Complete this dummy CPD course and a certificate will be generated when you finish the quiz.
         </p>
-        <ul>
-          <li>Classroom-ready strategies for delivery</li>
-          <li>Hands-on activities and assessment guidance</li>
-          <li>Certificate issued on completion</li>
-        </ul>
-        <a class="cpd-btn" href="mailto:sales@matrixtsl.com?subject=CPD%20Course%20Enquiry">Start CPD Enquiry</a>
+
+        <div class="cpd-modules">
+          <article class="cpd-module">
+            <h3>Module 1, Static Systems</h3>
+            <p>Review resultant forces, moments, and equilibrium checks for classroom activities.</p>
+          </article>
+          <article class="cpd-module">
+            <h3>Module 2, Dynamics & Energy</h3>
+            <p>Apply work, power, kinetic energy, and acceleration to practical learner scenarios.</p>
+          </article>
+          <article class="cpd-module">
+            <h3>Module 3, Fluids & Thermodynamics</h3>
+            <p>Cover hydrostatic pressure, heat transfer basics, and machine efficiency concepts.</p>
+          </article>
+        </div>
+
+        <div class="cpd-learner">
+          <label for="teacherName">Teacher name (optional for certificate)</label>
+          <input id="teacherName" type="text" placeholder="Enter your name" />
+        </div>
+
+        <h3>Knowledge Check</h3>
+        <form id="cpdQuiz" class="cpd-quiz">
+          <fieldset class="cpd-question" data-question="q1">
+            <legend>1) Which condition set is correct for 2D static equilibrium?</legend>
+            <label><input type="radio" name="q1" value="a" /> ΣF = ma only</label>
+            <label><input type="radio" name="q1" value="b" /> ΣFx = 0, ΣFy = 0, ΣM = 0</label>
+            <label><input type="radio" name="q1" value="c" /> p = ρgh</label>
+          </fieldset>
+
+          <fieldset class="cpd-question" data-question="q2">
+            <legend>2) Direct stress is calculated using:</legend>
+            <label><input type="radio" name="q2" value="a" /> σ = F / A</label>
+            <label><input type="radio" name="q2" value="b" /> E = mcΔT</label>
+            <label><input type="radio" name="q2" value="c" /> v = u + at</label>
+          </fieldset>
+
+          <fieldset class="cpd-question" data-question="q3">
+            <legend>3) Kinetic energy is:</legend>
+            <label><input type="radio" name="q3" value="a" /> Eₖ = mgh</label>
+            <label><input type="radio" name="q3" value="b" /> Eₖ = 1/2mv²</label>
+            <label><input type="radio" name="q3" value="c" /> Eₖ = Fs</label>
+          </fieldset>
+
+          <fieldset class="cpd-question" data-question="q4">
+            <legend>4) Hydrostatic pressure at depth can be found using:</legend>
+            <label><input type="radio" name="q4" value="a" /> p = ρgh</label>
+            <label><input type="radio" name="q4" value="b" /> P = IV</label>
+            <label><input type="radio" name="q4" value="c" /> W = Fs</label>
+          </fieldset>
+
+          <fieldset class="cpd-question" data-question="q5">
+            <legend>5) Mechanical advantage is typically:</legend>
+            <label><input type="radio" name="q5" value="a" /> MA = Effort / Load</label>
+            <label><input type="radio" name="q5" value="b" /> MA = Load / Effort</label>
+            <label><input type="radio" name="q5" value="c" /> MA = Distance / Time</label>
+          </fieldset>
+        </form>
+
+        <div class="cpd-actions">
+          <button id="completeCpdBtn" class="cpd-btn" type="button">✅ Complete CPD Course</button>
+          <button id="resetCpdBtn" class="cpd-btn secondary" type="button">↺ Reset</button>
+        </div>
+
+        <p id="cpdResult" class="cpd-result" aria-live="polite"></p>
+
+        <section id="cpdCertificate" class="cpd-certificate hidden" aria-live="polite">
+          <h3>Matrix Certificate of Completion</h3>
+          <p class="cpd-chip">Fundamental Mechanics CPD</p>
+          <p id="certificateNameLine"></p>
+          <p>
+            Congratulations. You are congratulations on completing the Matrix fundamental mechanics CPD course.
+          </p>
+        </section>
       </section>
     </main>
 
+    <script src="cpd.js?v=1"></script>
     <script src="safety.js?v=1"></script>
     <script type="module" src="effects.js?v=3"></script>
   </body>

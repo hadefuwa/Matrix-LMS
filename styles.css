@@ -744,6 +744,98 @@ li {
   background: radial-gradient(circle at top right, #f1ecff, #e8dfff 68%);
 }
 
+.cpd-course {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.cpd-pill {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7f58f0, #5d39cc);
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  padding: 0.28rem 0.62rem;
+}
+
+.cpd-modules {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.65rem;
+}
+
+.cpd-module {
+  border: 1px solid #d7c9f8;
+  background: rgba(255, 255, 255, 0.74);
+  border-radius: 0.65rem;
+  padding: 0.62rem 0.68rem;
+}
+
+.cpd-module h3 {
+  margin: 0 0 0.32rem;
+  font-size: 0.92rem;
+  color: #43308f;
+}
+
+.cpd-module p {
+  margin: 0;
+  color: #5c4d88;
+}
+
+.cpd-learner {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.cpd-learner label {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #4f4676;
+}
+
+.cpd-learner input {
+  width: min(420px, 100%);
+  background: #fff;
+  color: var(--text);
+  border: 1px solid #ccb8f5;
+  border-radius: 0.6rem;
+  padding: 0.62rem 0.7rem;
+}
+
+.cpd-quiz {
+  display: grid;
+  gap: 0.72rem;
+}
+
+.cpd-question {
+  border: 1px solid #d8c9fa;
+  border-radius: 0.62rem;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 0.62rem 0.7rem;
+  margin: 0;
+}
+
+.cpd-question legend {
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  color: #423476;
+}
+
+.cpd-question label {
+  display: block;
+  margin: 0.35rem 0;
+}
+
+.cpd-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
 .cpd-btn {
   display: inline-flex;
   align-items: center;
@@ -757,11 +849,55 @@ li {
   border: 1px solid #cdb9ff;
   background: linear-gradient(135deg, #7f58f0, #5d39cc);
   box-shadow: 0 9px 20px rgba(87, 58, 187, 0.32);
+  cursor: pointer;
 }
 
 .cpd-btn:hover {
   transform: translateY(-1px);
   background: linear-gradient(135deg, #906cff, #6a48d5);
+}
+
+.cpd-btn.secondary {
+  background: linear-gradient(135deg, #e7defb, #d9cbf9);
+  border-color: #c9b4f5;
+  color: #4c3d7f;
+  box-shadow: 0 8px 18px rgba(93, 68, 166, 0.18);
+}
+
+.cpd-btn.secondary:hover {
+  background: linear-gradient(135deg, #efe8ff, #dfd4fb);
+}
+
+.cpd-result {
+  margin: 0.2rem 0 0;
+  font-weight: 700;
+  color: #5a4c8d;
+}
+
+.cpd-result.success {
+  color: #2d7f4a;
+}
+
+.cpd-certificate {
+  border: 2px solid #8f6ef2;
+  border-radius: 0.75rem;
+  padding: 0.85rem;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(242, 236, 255, 0.92));
+}
+
+.cpd-chip {
+  display: inline-flex;
+  background: #e7dcff;
+  border: 1px solid #c8b2ff;
+  color: #4a378d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+}
+
+.hidden {
+  display: none;
 }
 
 .quote-btn {

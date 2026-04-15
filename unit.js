@@ -244,6 +244,14 @@ const BASE_VIDEOS = [
   { id: "9vpu4dfIw90", title: "New to the Fundamental Mechanics range" }
 ];
 
+function createQuoteLink(offeringLabel) {
+  const subject = encodeURIComponent(`Quote request: ${offeringLabel} for ${unit.code} (${unit.title})`);
+  const body = encodeURIComponent(
+    `Hi Matrix team,\n\nPlease share a quote for ${offeringLabel} for ${unit.code}: ${unit.title}.\n\nThanks.`
+  );
+  return `mailto:sales@matrixtsl.com?subject=${subject}&body=${body}`;
+}
+
 const OFFERINGS = [
   {
     id: "offering-1",
@@ -265,6 +273,10 @@ const OFFERINGS = [
     docs: BASE_DOCS,
     playlistId: BASE_PLAYLIST_ID,
     videos: BASE_VIDEOS,
+    quote: {
+      label: "Get A Quote",
+      url: createQuoteLink("Matrix Offering 1")
+    },
     course: {
       description: "Launch the full online learning experience for this unit.",
       label: "Go To Online Course Viewer",
@@ -301,6 +313,10 @@ const OFFERINGS = [
       ...BASE_VIDEOS,
       { id: "i4du9N_89iE", title: "Matrix TSL: Automation Systems Overview" }
     ],
+    quote: {
+      label: "Get A Quote",
+      url: createQuoteLink("Matrix Offering 2")
+    },
     course: {
       description: "Launch the online course bundle aligned to Matrix Offering 2.",
       label: "Go To Offering 2 Course",
@@ -337,6 +353,10 @@ const OFFERINGS = [
       ...BASE_VIDEOS,
       { id: "2J6fHnfdQwY", title: "Matrix TSL: Industry 4.0 and Maintenance Pathways" }
     ],
+    quote: {
+      label: "Get A Quote",
+      url: createQuoteLink("Matrix Offering 3")
+    },
     course: {
       description: "Launch the online course bundle aligned to Matrix Offering 3.",
       label: "Go To Offering 3 Course",
@@ -494,6 +514,7 @@ function renderFeatureTicks(id, items) {
 
 const offeringTabs = document.getElementById("offeringTabs");
 const hardwareImage = document.getElementById("hardwareImage");
+const quoteBtn = document.getElementById("quoteBtn");
 const videoSlider = document.getElementById("videoSlider");
 const videoPlayer = document.getElementById("videoPlayer");
 const courseDescription = document.getElementById("courseDescription");
@@ -549,6 +570,11 @@ function setOffering(offeringId) {
   if (activeOffering.image) {
     hardwareImage.src = activeOffering.image.src;
     hardwareImage.alt = activeOffering.image.alt || activeOffering.label;
+  }
+  if (activeOffering.quote) {
+    quoteBtn.textContent = activeOffering.quote.label;
+    quoteBtn.href = activeOffering.quote.url;
+    quoteBtn.setAttribute("aria-label", `${activeOffering.quote.label} for ${activeOffering.label}`);
   }
   fillList("hardwareList", activeOffering.hardware);
   fillDocs("docsList", activeOffering.docs);

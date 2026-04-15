@@ -221,6 +221,27 @@ function renderObjectives(id) {
   document.getElementById(id).innerHTML = html + assessmentHtml;
 }
 
+function setupObjectivesToggle() {
+  const content = document.getElementById("objectivesContent");
+  const toggle = document.getElementById("objectivesToggle");
+  if (!content || !toggle) return;
+
+  let expanded = false;
+
+  const update = () => {
+    content.classList.toggle("objectives-collapsed", !expanded);
+    toggle.textContent = expanded ? "Hide full content ▲" : "Expand here ▼";
+    toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+  };
+
+  toggle.addEventListener("click", () => {
+    expanded = !expanded;
+    update();
+  });
+
+  update();
+}
+
 function fillDocs(id, items) {
   document.getElementById(id).innerHTML = items
     .map(
@@ -284,6 +305,7 @@ function renderVideoSlider() {
 
 renderFeatureTicks("featureTicks", featureTicks);
 renderObjectives("objectivesContent");
+setupObjectivesToggle();
 fillList("sowList", sow);
 document.getElementById("hardwareSummary").textContent = hardwareSummary;
 fillList("hardwareList", hardware);

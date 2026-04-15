@@ -208,6 +208,39 @@ input[type="search"] {
 .objectives-content {
   display: grid;
   gap: 0.85rem;
+  position: relative;
+}
+
+.objectives-collapsed {
+  max-height: calc(5 * 1.45em);
+  overflow: hidden;
+}
+
+.objectives-collapsed::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2.6rem;
+  background: linear-gradient(180deg, rgba(18, 25, 37, 0), rgba(18, 25, 37, 1));
+  pointer-events: none;
+}
+
+.objectives-toggle {
+  margin-top: 0.6rem;
+  width: 100%;
+  border: 1px solid #3e83bd;
+  background: #123052;
+  color: #dcefff;
+  border-radius: 0.55rem;
+  padding: 0.55rem 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.objectives-toggle:hover {
+  background: #18436f;
 }
 
 .aim-block {

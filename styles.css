@@ -509,6 +509,30 @@ li {
   box-shadow: 0 12px 26px rgba(41, 132, 225, 0.45);
 }
 
+.scorm-panel {
+  background: radial-gradient(circle at top right, #2f5f3f, #1c2d23 68%);
+}
+
+.scorm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  padding: 0.78rem 1.05rem;
+  border-radius: 0.7rem;
+  text-decoration: none;
+  font-weight: 800;
+  color: #ffffff;
+  border: 1px solid #9ad7ad;
+  background: linear-gradient(135deg, #2f9e5b, #1f7a44);
+  box-shadow: 0 9px 20px rgba(38, 132, 71, 0.32);
+}
+
+.scorm-btn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #3cb368, #248a4f);
+}
+
 .contact-panel {
   background: radial-gradient(circle at top right, #2a4c74, #1a2a40 68%);
 }

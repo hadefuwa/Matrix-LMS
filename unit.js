@@ -7,8 +7,10 @@ document.getElementById("unitTitle").textContent = `${unit.code}: ${unit.title}`
 document.getElementById("unitHero").src = unit.image;
 document.getElementById("unitHero").alt = unit.title;
 
-document.getElementById("unitDescription").textContent =
-  `This is placeholder prototype text for ${unit.code}. In the final system this will describe what learners study, teaching context, assessment approach, and delivery guidance.`;
+document.getElementById("unitDescription").innerHTML = `
+  <p>The primary aim of this unit is to bridge the gap between scientific theory and practical engineering applications. While physics tells you how the universe works, this unit teaches you how to ensure a bridge does not collapse, an engine does not overheat, and a mechanical lift operates efficiently.</p>
+  <p><strong>Official Theme:</strong> "To introduce learners to the essential mechanical principles associated with engineering applications, involving the behavior of static, dynamic, and fluid systems."</p>
+`;
 
 const learningAims = [
   {

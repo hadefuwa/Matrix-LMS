@@ -154,6 +154,35 @@ li {
   margin-bottom: 0.45rem;
 }
 
+.video-embed {
+  margin: 0.7rem 0 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  overflow: hidden;
+  background: #000;
+}
+
+.video-embed iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  display: block;
+}
+
+.video-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.video-list a {
+  color: #9fd0ff;
+  text-decoration: none;
+}
+
+.video-list a:hover {
+  text-decoration: underline;
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
   color: var(--muted);

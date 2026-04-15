@@ -38,18 +38,34 @@ const manuals = [
   "Health and safety checklist (placeholder)"
 ];
 
-const videos = [
-  "Intro video: concept overview (placeholder)",
-  "Demo video: setup and operation (placeholder)",
-  "Assessment tips video (placeholder)"
+const PLAYLIST_ID = "PLZonYDsrgLmcNqDHwAIUKlt4ZCHFO_rHd";
+const playlistVideos = [
+  { id: "1iceY6lAKr0", title: "Introducing Fundamental Mechanics from Matrix TSL" },
+  { id: "VxfDRLughQg", title: "Fundamental Mechanics - Materials" },
+  { id: "Cz5zJkafZo8", title: "Fundamental Mechanics - Dynamics" },
+  { id: "7I_fW6juM40", title: "Fundamental Mechanics - Statics" },
+  { id: "ZJf9ni8KNcI", title: "Introducing Mechanisms Fundamentals" },
+  { id: "9vpu4dfIw90", title: "New to the Fundamental Mechanics range" }
 ];
 
 function fillList(id, items) {
   document.getElementById(id).innerHTML = items.map((item) => `<li>${item}</li>`).join("");
 }
 
+function fillVideoList(id, items) {
+  document.getElementById(id).innerHTML = items
+    .map((video, index) => {
+      const url = `https://www.youtube.com/watch?v=${video.id}&list=${PLAYLIST_ID}&index=${index + 1}`;
+      return `<li><a href="${url}" target="_blank" rel="noopener noreferrer">${video.title}</a></li>`;
+    })
+    .join("");
+}
+
+const playlistEmbed = document.getElementById("playlistEmbed");
+playlistEmbed.src = `https://www.youtube.com/embed/videoseries?list=${PLAYLIST_ID}`;
+
 fillList("objectivesList", objectives);
 fillList("sowList", sow);
 fillList("hardwareList", hardware);
 fillList("manualsList", manuals);
-fillList("videosList", videos);
+fillVideoList("videosList", playlistVideos);

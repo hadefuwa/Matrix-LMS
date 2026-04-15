@@ -143,6 +143,7 @@ input[type="search"] {
   border: 1px solid var(--border);
   border-radius: 0.85rem;
   padding: 1rem;
+  overflow: hidden;
 }
 
 .panel h2 {
@@ -330,13 +331,14 @@ input[type="search"] {
 }
 
 .hardware-image {
-  width: 100%;
+  width: min(100%, 560px);
   max-height: 320px;
   object-fit: contain;
   border: 1px solid var(--border);
   border-radius: 0.65rem;
   background: #0f141d;
-  margin-bottom: 0.7rem;
+  margin: 0 auto 0.7rem;
+  display: block;
 }
 
 li {
@@ -385,7 +387,8 @@ li {
 }
 
 .video-embed {
-  margin: 0.8rem 0 0.2rem;
+  width: min(100%, 560px);
+  margin: 0.8rem auto 0.2rem;
   border: 1px solid var(--border);
   border-radius: 0.65rem;
   overflow: hidden;

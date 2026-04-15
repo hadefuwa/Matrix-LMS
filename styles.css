@@ -6,6 +6,8 @@
   --muted: #5f738b;
   --accent: #1f6bd1;
   --border: #d4dfed;
+  --mouse-x: 50%;
+  --mouse-y: 30%;
 }
 
 * {
@@ -22,11 +24,46 @@ html {
 body {
   margin: 0;
   font-family: Inter, Segoe UI, Arial, sans-serif;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(89, 176, 255, 0.2), transparent 35%),
+    linear-gradient(180deg, #f8fbff, var(--bg));
   color: var(--text);
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  position: relative;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.33;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body::before {
+  background: rgba(62, 151, 255, 0.28);
+  top: -14rem;
+  left: -10rem;
+  animation: floatGlowA 16s ease-in-out infinite;
+}
+
+body::after {
+  background: rgba(108, 216, 177, 0.24);
+  right: -12rem;
+  bottom: -16rem;
+  animation: floatGlowB 18s ease-in-out infinite;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -36,8 +73,12 @@ body {
 
 .site-header {
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, #f9fcff, #edf3fa);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(234, 243, 252, 0.86));
   padding: 1.2rem 0 1rem;
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 8;
 }
 
 .site-header h1 {
@@ -62,6 +103,8 @@ body {
   max-width: 100%;
   height: auto;
   object-fit: contain;
+  filter: drop-shadow(0 5px 14px rgba(59, 117, 179, 0.26));
+  animation: logoFloat 4.6s ease-in-out infinite;
 }
 
 .brand-copy {
@@ -158,18 +201,36 @@ input[type="search"] {
 }
 
 .card {
-  background: var(--panel);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.95), rgba(245, 250, 255, 0.95));
   border: 1px solid var(--border);
   border-radius: 0.85rem;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.18s ease, border-color 0.18s ease;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  box-shadow: 0 10px 24px rgba(48, 87, 133, 0.1);
+  position: relative;
+}
+
+.card::after,
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.65), transparent 68%);
+  transform: translateX(-120%);
+  pointer-events: none;
 }
 
 .card:hover {
-  transform: translateY(-3px);
-  border-color: #2f4d72;
+  transform: translateY(-4px);
+  border-color: #7db4e6;
+  box-shadow: 0 14px 30px rgba(45, 98, 159, 0.18);
+}
+
+.card:hover::after,
+.panel:hover::after {
+  animation: shimmerPass 0.95s ease;
 }
 
 .card img {
@@ -226,12 +287,22 @@ input[type="search"] {
 }
 
 .panel {
-  background: var(--panel);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.94), rgba(240, 248, 255, 0.9));
   border: 1px solid var(--border);
   border-radius: 0.85rem;
   padding: 1rem;
   min-width: 0;
   max-width: 100%;
+  box-shadow: 0 12px 28px rgba(62, 101, 148, 0.1);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel:hover {
+  transform: translateY(-2px);
+  border-color: #95bee3;
+  box-shadow: 0 16px 30px rgba(63, 107, 160, 0.16);
 }
 
 .panel h2 {
@@ -692,6 +763,56 @@ li {
   padding: 0.9rem 0 1.2rem;
 }
 
+.reveal-init {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease var(--reveal-delay, 0ms), transform 0.5s ease var(--reveal-delay, 0ms);
+}
+
+.reveal-init.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes shimmerPass {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes floatGlowA {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(3rem, 2.5rem, 0);
+  }
+}
+
+@keyframes floatGlowB {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-3rem, -2rem, 0);
+  }
+}
+
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 .card h3,
 .card p,
 .aim-block,
@@ -705,6 +826,20 @@ li {
 .feature-item span:last-child {
   overflow-wrap: anywhere;
   word-break: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal-init {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (max-width: 1100px) {

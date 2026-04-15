@@ -143,7 +143,6 @@ input[type="search"] {
   border: 1px solid var(--border);
   border-radius: 0.85rem;
   padding: 1rem;
-  overflow: hidden;
 }
 
 .panel h2 {
@@ -501,4 +500,68 @@ li {
   color: var(--muted);
   font-size: 0.85rem;
   padding: 0.9rem 0 1.2rem;
+}
+
+.card h3,
+.card p,
+.aim-block,
+.docs-list li,
+.download-btn {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: min(100%, 95vw);
+  }
+
+  .site-header h1 {
+    font-size: 1.45rem;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #unitCount {
+    text-align: right;
+  }
+
+  .panel {
+    padding: 0.8rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .video-slider {
+    grid-auto-columns: minmax(150px, 72%);
+    gap: 0.55rem;
+  }
+
+  .video-thumb span {
+    font-size: 0.76rem;
+    padding: 0.4rem 0.5rem 0.55rem;
+  }
+
+  .video-embed,
+  .hardware-image {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sow-table {
+    min-width: 620px;
+  }
+
+  .download-row {
+    gap: 0.4rem;
+  }
+
+  .download-btn {
+    font-size: 0.78rem;
+    padding: 0.38rem 0.52rem;
+  }
 }

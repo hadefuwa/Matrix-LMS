@@ -120,13 +120,68 @@ const assessmentTerms = [
   }
 ];
 
-const sow = [
-  "Week 1: Unit intro, baseline assessment, and key concepts.",
-  "Week 2: Tutor-led theory session plus worked examples.",
-  "Week 3: Practical workshop activity and observation.",
-  "Week 4: Assessment preparation and learner support session.",
-  "Week 5: Assignment completion and feedback review."
-];
+const sowPlan = {
+  overview: "20 sessions of 3 hours, covering Learning Aims A, B, and C.",
+  title: "BTEC National: Fundamental Mechanics - Scheme of Work (Draft)",
+  phase: "Phase 1: Learning Aim A - Static Systems (Weeks 1-7)",
+  focus: "Focus: Equilibrium, Force Vectors, and Material Strength.",
+  rows: [
+    {
+      week: "1",
+      type: "Presentation",
+      activity: "Intro to Vectors: Scalars vs. Vectors and resolving forces.",
+      resources: "Slide deck: Vector Geometry"
+    },
+    {
+      week: "1",
+      type: "Practical",
+      activity: "Force Triangles: Using the Force Board to verify vector addition.",
+      resources: "Matrix Force Board Kit"
+    },
+    {
+      week: "2",
+      type: "Presentation",
+      activity: "Moments & Equilibrium: The Principle of Moments and center of gravity.",
+      resources: "Slide deck: Moments"
+    },
+    {
+      week: "2",
+      type: "Homework",
+      activity: "Calculation sheet: Support reactions on simply supported beams.",
+      resources: "Problem Set 1"
+    },
+    {
+      week: "3",
+      type: "Practical",
+      activity: "Beam Deflection: Measuring reactions and moments on a scale model.",
+      resources: "Matrix Structures Kit"
+    },
+    {
+      week: "4",
+      type: "Presentation",
+      activity: "Stress & Strain: Young’s Modulus, Factor of Safety, and Hooke's Law.",
+      resources: "Slide deck: Material Science"
+    },
+    {
+      week: "5",
+      type: "Practical",
+      activity: "Tensile Testing: Stress/Strain curves using different wire gauges.",
+      resources: "Matrix Materials Kit"
+    },
+    {
+      week: "6",
+      type: "Assessment",
+      activity: "Progress Test 1: Formal MCQ and short-form calculations on statics.",
+      resources: "Classroom Test"
+    },
+    {
+      week: "7",
+      type: "Presentation",
+      activity: "Assignment Briefing: Launching Learning Aim A assignment.",
+      resources: "Assignment Pack"
+    }
+  ]
+};
 
 const hardwareSummary = "This full set of equipment allows students to understand the principles of fundamental statics, materials and dynamics engineering systems in one portal set of equipment.";
 
@@ -221,15 +276,15 @@ function renderObjectives(id) {
   document.getElementById(id).innerHTML = html + assessmentHtml;
 }
 
-function setupObjectivesToggle() {
-  const content = document.getElementById("objectivesContent");
-  const toggle = document.getElementById("objectivesToggle");
+function setupCollapsible(contentId, toggleId, collapsedClass) {
+  const content = document.getElementById(contentId);
+  const toggle = document.getElementById(toggleId);
   if (!content || !toggle) return;
 
   let expanded = false;
 
   const update = () => {
-    content.classList.toggle("objectives-collapsed", !expanded);
+    content.classList.toggle(collapsedClass, !expanded);
     toggle.textContent = expanded ? "Hide full content ▲" : "Expand here ▼";
     toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
   };
@@ -240,6 +295,41 @@ function setupObjectivesToggle() {
   });
 
   update();
+}
+
+function renderSow(id) {
+  const host = document.getElementById(id);
+  host.innerHTML = `
+    <div class="sow-meta"><strong>${sowPlan.overview}</strong></div>
+    <div class="sow-meta"><strong>${sowPlan.title}</strong></div>
+    <div class="sow-meta">${sowPlan.phase}</div>
+    <div class="sow-meta">${sowPlan.focus}</div>
+
+    <div class="sow-table-wrap">
+      <table class="sow-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Session Type</th>
+            <th>Topic & Activity</th>
+            <th>Resources (Matrix TSL)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${sowPlan.rows
+            .map(
+              (row) => `
+                <tr>
+                  <td>${row.week}</td>
+                  <td>${row.type}</td>
+                  <td>${row.activity}</td>
+                  <td>${row.resources}</td>
+                </tr>`
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>`;
 }
 
 function fillDocs(id, items) {
@@ -305,8 +395,9 @@ function renderVideoSlider() {
 
 renderFeatureTicks("featureTicks", featureTicks);
 renderObjectives("objectivesContent");
-setupObjectivesToggle();
-fillList("sowList", sow);
+setupCollapsible("objectivesContent", "objectivesToggle", "objectives-collapsed");
+renderSow("sowContent");
+setupCollapsible("sowContent", "sowToggle", "sow-collapsed");
 document.getElementById("hardwareSummary").textContent = hardwareSummary;
 fillList("hardwareList", hardware);
 fillDocs("docsList", docs);

@@ -740,6 +740,30 @@ li {
   background: linear-gradient(135deg, #3cb368, #248a4f);
 }
 
+.cpd-panel {
+  background: radial-gradient(circle at top right, #f1ecff, #e8dfff 68%);
+}
+
+.cpd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+  padding: 0.78rem 1.05rem;
+  border-radius: 0.7rem;
+  text-decoration: none;
+  font-weight: 800;
+  color: #ffffff;
+  border: 1px solid #cdb9ff;
+  background: linear-gradient(135deg, #7f58f0, #5d39cc);
+  box-shadow: 0 9px 20px rgba(87, 58, 187, 0.32);
+}
+
+.cpd-btn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #906cff, #6a48d5);
+}
+
 .quote-btn {
   display: inline-flex;
   align-items: center;

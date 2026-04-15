@@ -5,7 +5,7 @@
   const tickEls = [...document.querySelectorAll(".feature-tick")];
   const buttonEls = [
     ...document.querySelectorAll(
-      ".tab-btn, .offering-tab-btn, .download-btn, .course-btn, .scorm-btn, .quote-btn, .contact-card"
+      ".tab-btn, .offering-tab-btn, .download-btn, .course-btn, .scorm-btn, .cpd-btn, .quote-btn, .contact-card"
     )
   ];
 

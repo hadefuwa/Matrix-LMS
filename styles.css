@@ -74,12 +74,37 @@ body {
   font-size: 0.95rem;
 }
 
+.unit-tabs {
+  display: inline-flex;
+  gap: 0.4rem;
+  background: #e5eef9;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.28rem;
+  margin: 1rem 0 0.2rem;
+}
+
+.tab-btn {
+  border: 0;
+  background: transparent;
+  color: #35506f;
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: #1f6bd1;
+  color: #fff;
+}
+
 .toolbar {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
-  margin: 1.2rem 0;
+  margin: 1rem 0 1.2rem;
 }
 
 input[type="search"] {
@@ -641,6 +666,16 @@ li {
 
   .site-header h1 {
     font-size: 1.45rem;
+  }
+
+  .unit-tabs {
+    display: flex;
+    width: 100%;
+  }
+
+  .tab-btn {
+    flex: 1;
+    text-align: center;
   }
 
   .toolbar {

@@ -1,9 +1,20 @@
 const params = new URLSearchParams(window.location.search);
-const unitNumber = Number(params.get("unit")) || 1;
-const unit = BTEC_UNITS.find((u) => u.number === unitNumber) || BTEC_UNITS[0];
+const unitParam = params.get("unit") || "btec-1";
+
+function resolveUnit(param) {
+  return (
+    ALL_UNITS.find((u) => u.id === param) ||
+    BTEC_UNITS.find((u) => String(u.number) === param || `btec-${u.number}` === param) ||
+    HN_UNITS.find((u) => String(u.number) === param || `hn-${u.number}` === param) ||
+    BTEC_UNITS[0]
+  );
+}
+
+const unit = resolveUnit(unitParam);
 
 document.title = `${unit.code} - ${unit.title}`;
 document.getElementById("unitTitle").textContent = `${unit.code}: ${unit.title}`;
+document.getElementById("unitSubtitle").textContent = `${unit.qualification} • ${unit.title}`;
 document.getElementById("unitHero").src = unit.image;
 document.getElementById("unitHero").alt = unit.title;
 

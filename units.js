@@ -37,6 +37,47 @@ const BTEC_UNIT_DEFS = [
   { number: 36, title: "Programmable Logic Controllers", summary: "PLC programming, I/O logic, and automation control." }
 ];
 
+const HN_UNIT_DEFS = [
+  { number: 4001, title: "Engineering Design" },
+  { number: 4002, title: "Engineering Mathematics" },
+  { number: 4003, title: "Engineering Science I" },
+  { number: 4004, title: "Managing a Professional Engineering Project" },
+  { number: 4005, title: "Renewable Energy" },
+  { number: 4006, title: "Mechatronics" },
+  { number: 4007, title: "Machining and Processing of Engineering Materials" },
+  { number: 4008, title: "Mechanical Principles" },
+  { number: 4009, title: "Materials, Properties and Testing" },
+  { number: 4010, title: "Mechanical Workshop Practices" },
+  { number: 4011, title: "Fluid Mechanics" },
+  { number: 4013, title: "Fundamentals of Thermodynamics and Heat Transfer" },
+  { number: 4014, title: "Production Engineering for Manufacture" },
+  { number: 4015, title: "Automation, Robotics and Programmable Logic Controllers (PLCs)" },
+  { number: 4016, title: "Instrumentation and Control Systems" },
+  { number: 4017, title: "Quality and Process Improvement" },
+  { number: 4018, title: "Maintenance Engineering" },
+  { number: 4019, title: "Electrical and Electronic Principles" },
+  { number: 4020, title: "Digital Principles" },
+  { number: 4021, title: "Electrical Machines" },
+  { number: 4022, title: "Electronic Circuits and Devices" },
+  { number: 4023, title: "Computer Aided Design and Manufacture (CAD/CAM)" },
+  { number: 4024, title: "Electro, Pneumatic and Hydraulic Systems" },
+  { number: 4025, title: "Operations and Plant Management" },
+  { number: 4026, title: "Electrical Systems and Fault Finding" },
+  { number: 4027, title: "CAD for Schematics in Maintenance Engineering" },
+  { number: 4030, title: "Industry 4.0" },
+  { number: 4032, title: "Introduction to Biomedical Engineering" },
+  { number: 4034, title: "Computer Aided Design (CAD) for Engineering" },
+  { number: 4041, title: "Aircraft Aerodynamics" },
+  { number: 4042, title: "Aircraft Electrical Power and Distribution Systems" },
+  { number: 4043, title: "Airframe Mechanical Systems" },
+  { number: 4044, title: "Composite Materials for Aerospace Applications" },
+  { number: 4045, title: "Turbine Rotary Wing Mechanical and Flight Systems" },
+  { number: 4076, title: "Manufacturing Processes" }
+].map((u) => ({
+  ...u,
+  summary: `Higher National unit covering ${u.title.toLowerCase()}.`
+}));
+
 const ASSET_IMAGES = [
   "assets/web/pexels-alshreef-36673118.webp",
   "assets/web/pexels-ferhat-kocakaya-218644751-33689077.webp",
@@ -65,8 +106,18 @@ function deterministicShuffle(items) {
 
 const SHUFFLED_ASSETS = deterministicShuffle(ASSET_IMAGES);
 
-const BTEC_UNITS = BTEC_UNIT_DEFS.map((u) => ({
-  ...u,
-  code: `Unit ${u.number}`,
-  image: SHUFFLED_ASSETS[(u.number - 1) % SHUFFLED_ASSETS.length]
-}));
+function buildUnits(defs, track) {
+  const qualification = track === "btec" ? "BTEC National" : "Higher National";
+  return defs.map((u, index) => ({
+    ...u,
+    id: `${track}-${u.number}`,
+    track,
+    qualification,
+    code: `Unit ${u.number}`,
+    image: SHUFFLED_ASSETS[index % SHUFFLED_ASSETS.length]
+  }));
+}
+
+const BTEC_UNITS = buildUnits(BTEC_UNIT_DEFS, "btec");
+const HN_UNITS = buildUnits(HN_UNIT_DEFS, "hn");
+const ALL_UNITS = [...BTEC_UNITS, ...HN_UNITS];

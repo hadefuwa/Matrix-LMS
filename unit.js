@@ -343,10 +343,10 @@ function renderSow(id) {
             .map(
               (row) => `
                 <tr>
-                  <td>${row.week}</td>
-                  <td>${row.type}</td>
-                  <td>${row.activity}</td>
-                  <td>${row.resources}</td>
+                  <td data-label="Week">${row.week}</td>
+                  <td data-label="Session Type">${row.type}</td>
+                  <td data-label="Topic & Activity">${row.activity}</td>
+                  <td data-label="Resources (Matrix TSL)">${row.resources}</td>
                 </tr>`
             )
             .join("")}

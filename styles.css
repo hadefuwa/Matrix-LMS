@@ -17,6 +17,8 @@ body {
   font-family: Inter, Segoe UI, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .container {
@@ -277,7 +279,7 @@ input[type="search"] {
 .sow-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 780px;
+  table-layout: fixed;
 }
 
 .sow-table th,
@@ -557,8 +559,47 @@ li {
     max-width: 100%;
   }
 
-  .sow-table {
-    min-width: 620px;
+  .sow-table-wrap {
+    overflow-x: visible;
+    border: none;
+  }
+
+  .sow-table,
+  .sow-table tbody,
+  .sow-table tr,
+  .sow-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .sow-table thead {
+    display: none;
+  }
+
+  .sow-table tr {
+    border: 1px solid var(--border);
+    border-radius: 0.55rem;
+    margin-bottom: 0.55rem;
+    background: #152131;
+    overflow: hidden;
+  }
+
+  .sow-table td {
+    border-bottom: 1px solid var(--border);
+    padding: 0.45rem 0.6rem;
+  }
+
+  .sow-table td:last-child {
+    border-bottom: none;
+  }
+
+  .sow-table td::before {
+    content: attr(data-label);
+    display: block;
+    color: #9ecdf3;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 0.16rem;
   }
 
   .download-row {

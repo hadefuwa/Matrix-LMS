@@ -509,13 +509,64 @@ li {
   box-shadow: 0 12px 26px rgba(41, 132, 225, 0.45);
 }
 
-.contact-panel a {
-  color: #9fd0ff;
-  text-decoration: none;
+.contact-panel {
+  background: radial-gradient(circle at top right, #2a4c74, #1a2a40 68%);
 }
 
-.contact-panel a:hover {
-  text-decoration: underline;
+.contact-intro {
+  margin-top: -0.15rem;
+  color: #d7e8f8;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+}
+
+.contact-card {
+  text-decoration: none;
+  color: #e9f4ff;
+  border: 1px solid rgba(164, 210, 255, 0.4);
+  background: rgba(11, 24, 39, 0.55);
+  border-radius: 0.7rem;
+  padding: 0.68rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-1px);
+  background: rgba(22, 45, 71, 0.7);
+  border-color: rgba(164, 210, 255, 0.72);
+}
+
+.contact-icon {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: #2f95ff;
+  font-size: 1rem;
+}
+
+.contact-copy {
+  display: grid;
+  gap: 0.14rem;
+  min-width: 0;
+}
+
+.contact-copy strong {
+  font-size: 0.9rem;
+  color: #d7ecff;
+}
+
+.contact-copy span {
+  font-size: 0.88rem;
+  color: #bcd8f2;
 }
 
 .site-footer {

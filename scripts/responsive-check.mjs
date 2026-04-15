@@ -6,10 +6,13 @@ const TARGET_URL = process.env.TARGET_URL || "https://hadefuwa.github.io/Matrix-
 const outDir = path.resolve("qa-artifacts/responsive");
 
 const viewports = [
+  { width: 280, height: 653, label: "280x653" },
   { width: 320, height: 740, label: "320x740" },
   { width: 360, height: 800, label: "360x800" },
+  { width: 375, height: 812, label: "375x812" },
   { width: 390, height: 844, label: "390x844" },
   { width: 412, height: 915, label: "412x915" },
+  { width: 430, height: 932, label: "430x932" },
   { width: 768, height: 1024, label: "768x1024" }
 ];
 

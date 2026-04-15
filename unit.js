@@ -25,11 +25,15 @@ const sow = [
   "Week 5: Assignment completion and feedback review."
 ];
 
+const hardwareSummary = "This full set of equipment allows students to understand the principles of fundamental statics, materials and dynamics engineering systems in one portal set of equipment.";
+
 const hardware = [
-  "Matrix training board (placeholder)",
-  "Relevant sensors/actuators (placeholder)",
-  "Power supply and protection equipment (placeholder)",
-  "PC/software tools for demonstration (placeholder)"
+  "Statics fundamentals",
+  "Materials fundamentals",
+  "Dynamics fundamentals",
+  "Mechanisms fundamentals",
+  "Dynamics Plus",
+  "Mechanisms Plus"
 ];
 
 const manuals = [
@@ -84,6 +88,7 @@ function renderVideoSlider() {
 
 fillList("objectivesList", objectives);
 fillList("sowList", sow);
+document.getElementById("hardwareSummary").textContent = hardwareSummary;
 fillList("hardwareList", hardware);
 fillList("manualsList", manuals);
 renderVideoSlider();

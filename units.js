@@ -37,62 +37,36 @@ const BTEC_UNIT_DEFS = [
   { number: 36, title: "Programmable Logic Controllers" }
 ];
 
-const UNIT_GRADIENTS = [
-  ["#1d3557", "#457b9d"],
-  ["#0b6e4f", "#09a66d"],
-  ["#7a1f3d", "#c04070"],
-  ["#4d2d52", "#8d5ba6"],
-  ["#7a4f01", "#d89100"],
-  ["#134074", "#3f88c5"]
+const ASSET_IMAGES = [
+  "assets/pexels-alshreef-36673118.jpg",
+  "assets/pexels-ferhat-kocakaya-218644751-33689077.jpg",
+  "assets/pexels-hoang-nc-483165236-36692505.jpg",
+  "assets/pexels-laura-893134855-36920312.jpg",
+  "assets/pexels-maarten-ceulemans-1837879676-36564994.jpg",
+  "assets/pexels-mikhail-nilov-9242180.jpg",
+  "assets/pexels-mikhail-nilov-9242216.jpg",
+  "assets/pexels-mikhail-nilov-9242858.jpg",
+  "assets/pexels-pixabay-256297.jpg",
+  "assets/pexels-theshuttervision-10290629.jpg",
+  "assets/pexels-thisisengineering-3862379.jpg",
+  "assets/scott-blake-x-ghf9LjrVg-unsplash.jpg"
 ];
 
-function unitEmoji(title) {
-  const t = title.toLowerCase();
-  if (t.includes("logic controllers") || t.includes("process controllers")) return "🤖";
-  if (t.includes("thermodynamic")) return "🔥";
-  if (t.includes("fluid") || t.includes("hydraulics") || t.includes("pneumatics")) return "💧";
-  if (t.includes("electrical") || t.includes("electronic")) return "⚡";
-  if (t.includes("calculus") || t.includes("mathematics")) return "📐";
-  if (t.includes("computer") || t.includes("programming") || t.includes("microcontroller")) return "💻";
-  if (t.includes("material")) return "🧱";
-  if (t.includes("manufacture") || t.includes("machining") || t.includes("mechanical")) return "⚙️";
-  return "🔧";
+function deterministicShuffle(items) {
+  const arr = [...items];
+  let seed = 36036;
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    seed = (seed * 1664525 + 1013904223) % 4294967296;
+    const j = seed % (i + 1);
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-function truncate(text, max = 44) {
-  return text.length > max ? `${text.slice(0, max - 1)}…` : text;
-}
-
-function svgDataUrl(svg) {
-  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
-}
-
-function unitImage(unit) {
-  const [from, to] = UNIT_GRADIENTS[unit.number % UNIT_GRADIENTS.length];
-  const emoji = unitEmoji(unit.title);
-  const title = truncate(unit.title.replace(/&/g, "and"));
-  const svg = `
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${from}"/>
-      <stop offset="100%" stop-color="${to}"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="800" fill="url(#g)"/>
-  <circle cx="1020" cy="180" r="180" fill="rgba(255,255,255,0.08)"/>
-  <circle cx="110" cy="690" r="140" fill="rgba(255,255,255,0.06)"/>
-  <text x="70" y="120" font-family="Arial, sans-serif" font-size="56" fill="white" opacity="0.9">Unit ${unit.number}</text>
-  <text x="70" y="195" font-family="Arial, sans-serif" font-size="44" fill="white" font-weight="700">${title}</text>
-  <text x="915" y="520" font-size="240">${emoji}</text>
-  <text x="70" y="740" font-family="Arial, sans-serif" font-size="28" fill="white" opacity="0.85">Matrix LMS Prototype</text>
-</svg>`;
-
-  return svgDataUrl(svg);
-}
+const SHUFFLED_ASSETS = deterministicShuffle(ASSET_IMAGES);
 
 const BTEC_UNITS = BTEC_UNIT_DEFS.map((u) => ({
   ...u,
   code: `Unit ${u.number}`,
-  image: unitImage(u)
+  image: SHUFFLED_ASSETS[(u.number - 1) % SHUFFLED_ASSETS.length]
 }));

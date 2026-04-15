@@ -153,7 +153,7 @@ const TRACK_LABELS = {
 };
 
 function buildUnits(defs, track) {
-  return defs.map((u, index) => {
+  return defs.map((u) => {
     const rawNumber = String(u.number);
     return {
       ...u,
@@ -161,7 +161,7 @@ function buildUnits(defs, track) {
       track,
       qualification: TRACK_LABELS[track],
       code: `Unit ${rawNumber}`,
-      image: SHUFFLED_ASSETS[index % SHUFFLED_ASSETS.length]
+      image: ""
     };
   });
 }
@@ -170,3 +170,12 @@ const BTEC_UNITS = buildUnits(BTEC_UNIT_DEFS, "btec");
 const HN_UNITS = buildUnits(HN_UNIT_DEFS, "hn");
 const EAL_UNITS = buildUnits(EAL_UNIT_DEFS, "eal");
 const ALL_UNITS = [...BTEC_UNITS, ...HN_UNITS, ...EAL_UNITS];
+
+const SHUFFLED_UNIT_IDS = deterministicShuffle(ALL_UNITS.map((unit) => unit.id));
+const IMAGE_BY_UNIT_ID = Object.fromEntries(
+  SHUFFLED_UNIT_IDS.map((unitId, index) => [unitId, SHUFFLED_ASSETS[index % SHUFFLED_ASSETS.length]])
+);
+
+ALL_UNITS.forEach((unit) => {
+  unit.image = IMAGE_BY_UNIT_ID[unit.id];
+});

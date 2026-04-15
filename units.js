@@ -38,18 +38,18 @@ const BTEC_UNIT_DEFS = [
 ];
 
 const ASSET_IMAGES = [
-  "assets/pexels-alshreef-36673118.jpg",
-  "assets/pexels-ferhat-kocakaya-218644751-33689077.jpg",
-  "assets/pexels-hoang-nc-483165236-36692505.jpg",
-  "assets/pexels-laura-893134855-36920312.jpg",
-  "assets/pexels-maarten-ceulemans-1837879676-36564994.jpg",
-  "assets/pexels-mikhail-nilov-9242180.jpg",
-  "assets/pexels-mikhail-nilov-9242216.jpg",
-  "assets/pexels-mikhail-nilov-9242858.jpg",
-  "assets/pexels-pixabay-256297.jpg",
-  "assets/pexels-theshuttervision-10290629.jpg",
-  "assets/pexels-thisisengineering-3862379.jpg",
-  "assets/scott-blake-x-ghf9LjrVg-unsplash.jpg"
+  "assets/web/pexels-alshreef-36673118.webp",
+  "assets/web/pexels-ferhat-kocakaya-218644751-33689077.webp",
+  "assets/web/pexels-hoang-nc-483165236-36692505.webp",
+  "assets/web/pexels-laura-893134855-36920312.webp",
+  "assets/web/pexels-maarten-ceulemans-1837879676-36564994.webp",
+  "assets/web/pexels-mikhail-nilov-9242180.webp",
+  "assets/web/pexels-mikhail-nilov-9242216.webp",
+  "assets/web/pexels-mikhail-nilov-9242858.webp",
+  "assets/web/pexels-pixabay-256297.webp",
+  "assets/web/pexels-theshuttervision-10290629.webp",
+  "assets/web/pexels-thisisengineering-3862379.webp",
+  "assets/web/scott-blake-x-ghf9LjrVg-unsplash.webp"
 ];
 
 function deterministicShuffle(items) {

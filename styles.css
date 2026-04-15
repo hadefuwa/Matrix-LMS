@@ -334,10 +334,52 @@ input[type="search"] {
 
 .feature-banner {
   background: linear-gradient(135deg, #eaf4ff, #d9ebff 65%, #cfe5ff);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-banner::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(47, 149, 255, 0.22), rgba(47, 149, 255, 0));
+  pointer-events: none;
+}
+
+.feature-head {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 0.2rem;
+}
+
+.feature-kicker {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  background: linear-gradient(135deg, #2f95ff, #1f6bd1);
+  border-radius: 999px;
+  padding: 0.28rem 0.6rem;
+  box-shadow: 0 6px 14px rgba(35, 120, 206, 0.28);
+}
+
+.feature-banner h2 {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.4vw, 1.45rem);
+  color: #173a61;
+  letter-spacing: 0.01em;
 }
 
 .feature-banner p {
-  margin-top: -0.2rem;
+  margin-top: 0;
   color: #4f6782;
 }
 

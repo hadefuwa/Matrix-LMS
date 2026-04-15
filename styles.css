@@ -765,9 +765,8 @@ li {
 }
 
 .reveal-init {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease var(--reveal-delay, 0ms), transform 0.5s ease var(--reveal-delay, 0ms);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .reveal-init.revealed {

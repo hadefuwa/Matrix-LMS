@@ -429,6 +429,38 @@ li {
   font-size: 0.82rem;
 }
 
+.download-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.download-btn {
+  display: inline-block;
+  background: #2f8cff;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid #4aa0ff;
+  border-radius: 0.5rem;
+  padding: 0.42rem 0.62rem;
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+.download-btn:hover {
+  background: #4c9dff;
+}
+
+.download-btn.secondary {
+  background: #1d2f45;
+  border-color: #355073;
+}
+
+.download-btn.secondary:hover {
+  background: #284463;
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
   color: var(--muted);

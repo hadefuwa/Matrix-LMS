@@ -183,6 +183,21 @@ const sowPlan = {
   ]
 };
 
+const sowDownloads = [
+  {
+    title: "Engineering Mechanics Slides",
+    file: "assets/19GES28 - Engineering Mechanics.pdf"
+  },
+  {
+    title: "Applied Mechanics Presentation",
+    file: "assets/PPT Applied Mechanics.pdf"
+  },
+  {
+    title: "Engineering Mechanics PPT Pack",
+    file: "assets/Engg-Mechanics-ppt-by-ujjval.pdf"
+  }
+];
+
 const hardwareSummary = "This full set of equipment allows students to understand the principles of fundamental statics, materials and dynamics engineering systems in one portal set of equipment.";
 
 const hardware = [
@@ -305,6 +320,14 @@ function renderSow(id) {
     <div class="sow-meta">${sowPlan.phase}</div>
     <div class="sow-meta">${sowPlan.focus}</div>
 
+    <div class="download-row">
+      ${sowDownloads
+        .map(
+          (doc) => `<a class="download-btn" href="${encodeURI(doc.file)}" download>${doc.title} ⬇</a>`
+        )
+        .join("")}
+    </div>
+
     <div class="sow-table-wrap">
       <table class="sow-table">
         <thead>
@@ -341,6 +364,10 @@ function fillDocs(id, items) {
         <div><strong>REF:</strong> ${doc.ref}</div>
         <div>${doc.summary}</div>
         <div><strong>Suitable for:</strong> ${doc.suitableFor.map((s) => `<code>${s}</code>`).join(" ")}</div>
+        <div class="download-row">
+          <a class="download-btn secondary" href="${doc.url}" target="_blank" rel="noopener noreferrer">Open PDF</a>
+          <a class="download-btn" href="${doc.url}" download>Download PDF ⬇</a>
+        </div>
       </li>`
     )
     .join("");

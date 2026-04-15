@@ -10,11 +10,112 @@ document.getElementById("unitHero").alt = unit.title;
 document.getElementById("unitDescription").textContent =
   `This is placeholder prototype text for ${unit.code}. In the final system this will describe what learners study, teaching context, assessment approach, and delivery guidance.`;
 
-const objectives = [
-  "Understand the core principles and vocabulary for this unit.",
-  "Apply theory to practical engineering examples.",
-  "Produce evidence suitable for assessment.",
-  "Reflect on safety, quality, and industry practice."
+const learningAims = [
+  {
+    title: "Learning Aim A: Examine static engineering systems",
+    intro: "This section focuses on objects at rest and the internal stresses they face.",
+    topics: [
+      {
+        code: "A1",
+        title: "Reduction of systems of forces",
+        points: [
+          "Resolving forces into horizontal and vertical components.",
+          "Determining the resultant of a system of coplanar forces using vector addition and trigonometry."
+        ]
+      },
+      {
+        code: "A2",
+        title: "Equilibrium of 2D force systems",
+        points: [
+          "Applying the conditions for static equilibrium: ΣFₓ = 0, ΣFᵧ = 0, and ΣM = 0.",
+          "Calculating support reactions for simply supported beams."
+        ]
+      },
+      {
+        code: "A3",
+        title: "Stress, strain, and elasticity",
+        points: [
+          "Calculating direct stress (σ), strain (ε), and Young’s Modulus (E).",
+          "Understanding the relationship between factor of safety and material limits."
+        ]
+      }
+    ]
+  },
+  {
+    title: "Learning Aim B: Examine dynamic engineering systems",
+    intro: "This section transitions into kinetic energy and the physics of moving parts.",
+    topics: [
+      {
+        code: "B1",
+        title: "Kinetic and potential energy",
+        points: [
+          "Calculating kinetic energy (Eₖ = 1/2mv²) and gravitational potential energy (Eₚ = mgh).",
+          "Applying the Principle of Conservation of Energy to solve engineering problems involving falling objects or oscillating systems."
+        ]
+      },
+      {
+        code: "B2",
+        title: "Work and power",
+        points: [
+          "Calculating work done by a constant force (W = Fs).",
+          "Determining power requirements for mechanical systems (P = Fv)."
+        ]
+      },
+      {
+        code: "B3",
+        title: "Uniform acceleration",
+        points: [
+          "Using the equations of motion (SUVAT) for linear displacement.",
+          "Applying Newton’s Second Law (F = ma) to systems involving friction and inclined planes."
+        ]
+      }
+    ]
+  },
+  {
+    title: "Learning Aim C: Examine fluid and thermodynamic systems",
+    intro: "This section covers how fluids behave under pressure and how heat energy moves.",
+    topics: [
+      {
+        code: "C1",
+        title: "Fluid mechanics",
+        points: [
+          "Determining hydrostatic pressure at various depths (p = ρgh).",
+          "Understanding buoyancy and Archimedes’ Principle for floating bodies."
+        ]
+      },
+      {
+        code: "C2",
+        title: "Thermodynamic properties",
+        points: [
+          "Understanding relationships between pressure, volume, and temperature (Boyle’s Law, Charles’s Law, and the General Gas Law).",
+          "Calculating heat transfer using specific heat capacity (Q = mcΔT)."
+        ]
+      },
+      {
+        code: "C3",
+        title: "Simple machines",
+        points: [
+          "Analyzing the Mechanical Advantage (MA) and Velocity Ratio (VR) of lifting machines (for example screw jacks and pulley blocks).",
+          "Calculating system efficiency based on energy input versus useful output."
+        ]
+      }
+    ]
+  }
+];
+
+const assessmentTerms = [
+  {
+    level: "Pass (P)",
+    description: "Use correct formulas to solve standard problems accurately."
+  },
+  {
+    level: "Merit (M)",
+    description: "Explain why results occur and complete more complex multi-stage calculations."
+  },
+  {
+    level: "Distinction (D)",
+    description: "Evaluate variable impacts (for example material choice vs factor of safety) and justify engineering decisions."
+  }
 ];
 
 const sow = [
@@ -74,6 +175,42 @@ function fillList(id, items) {
   document.getElementById(id).innerHTML = items.map((item) => `<li>${item}</li>`).join("");
 }
 
+function renderObjectives(id) {
+  const html = learningAims
+    .map(
+      (aim) => `
+      <article class="aim-block">
+        <h3>${aim.title}</h3>
+        <p>${aim.intro}</p>
+        ${aim.topics
+          .map(
+            (topic) => `
+            <div class="aim-topic">
+              <h4>${topic.code}: ${topic.title}</h4>
+              <ul>
+                ${topic.points.map((point) => `<li>${point}</li>`).join("")}
+              </ul>
+            </div>`
+          )
+          .join("")}
+      </article>`
+    )
+    .join("");
+
+  const assessmentHtml = `
+    <article class="aim-block assessment-block">
+      <h3>Key Assessment Terms</h3>
+      <p>When these appear in assignment briefs, this is the expected level of evidence:</p>
+      <ul>
+        ${assessmentTerms
+          .map((term) => `<li><strong>${term.level}</strong>: ${term.description}</li>`)
+          .join("")}
+      </ul>
+    </article>`;
+
+  document.getElementById(id).innerHTML = html + assessmentHtml;
+}
+
 function fillDocs(id, items) {
   document.getElementById(id).innerHTML = items
     .map(
@@ -118,7 +255,7 @@ function renderVideoSlider() {
   setActiveVideo(playlistVideos[0].id, 0);
 }
 
-fillList("objectivesList", objectives);
+renderObjectives("objectivesContent");
 fillList("sowList", sow);
 document.getElementById("hardwareSummary").textContent = hardwareSummary;
 fillList("hardwareList", hardware);

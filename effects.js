@@ -1,75 +1,57 @@
-(() => {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const revealTargets = [
+  ...document.querySelectorAll(".site-header, .feature-banner, .unit-hero, .panel, .card, .site-footer")
+];
+const pulseTargets = document.querySelectorAll(".tab-btn, .offering-tab-btn, .download-btn, .course-btn, .scorm-btn, .quote-btn");
 
-  const revealTargets = [
-    ...document.querySelectorAll(".site-header, .feature-banner, .unit-hero, .panel, .card, .site-footer")
-  ];
-
-  revealTargets.forEach((el, index) => {
-    el.classList.add("reveal-init");
-    el.style.setProperty("--reveal-delay", `${Math.min(index * 45, 420)}ms`);
+function showWithoutMotion() {
+  revealTargets.forEach((el) => {
+    el.classList.add("reveal-init", "revealed");
   });
+}
 
-  if (!prefersReducedMotion && "IntersectionObserver" in window && !isCoarsePointer) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add("revealed");
-          observer.unobserve(entry.target);
-        });
+if (!revealTargets.length) {
+  // Nothing to animate on this page
+} else if (prefersReducedMotion) {
+  showWithoutMotion();
+} else {
+  try {
+    const motion = await import("https://cdn.jsdelivr.net/npm/motion@11.18.2/+esm");
+    const { animate, inView, stagger } = motion;
+
+    revealTargets.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(14px)";
+      el.style.filter = "blur(4px)";
+    });
+
+    inView(
+      revealTargets,
+      (element) => {
+        animate(
+          element,
+          { opacity: [0, 1], y: [14, 0], filter: ["blur(4px)", "blur(0px)"] },
+          { duration: 0.65, ease: [0.22, 1, 0.36, 1] }
+        );
       },
-      { threshold: 0.12, rootMargin: "0px 0px -30px 0px" }
+      { amount: 0.15, margin: "0px 0px -40px 0px" }
     );
 
-    revealTargets.forEach((el) => observer.observe(el));
-  } else {
-    revealTargets.forEach((el, index) => {
-      const delay = prefersReducedMotion ? 0 : Math.min(index * 55, 360);
-      window.setTimeout(() => el.classList.add("revealed"), delay);
-    });
-  }
+    const featureItems = document.querySelectorAll(".feature-item");
+    if (featureItems.length) {
+      animate(
+        featureItems,
+        { opacity: [0, 1], y: [8, 0], scale: [0.985, 1] },
+        { duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: stagger(0.06, { startDelay: 0.08 }) }
+      );
+    }
 
-  if (!prefersReducedMotion && isCoarsePointer) {
-    const ambientTargets = document.querySelectorAll(".panel, .card");
-    ambientTargets.forEach((el, index) => {
-      el.classList.add("touch-ambient");
-      el.style.setProperty("--touch-delay", `${(index % 6) * 180}ms`);
-    });
-  }
-
-  if (!prefersReducedMotion && window.matchMedia("(min-width: 900px)").matches && !isCoarsePointer) {
-    const tiltTargets = document.querySelectorAll(
-      ".card, .panel, .video-thumb, .download-btn, .course-btn, .scorm-btn, .quote-btn, .tab-btn, .offering-tab-btn, .contact-card"
-    );
-
-    tiltTargets.forEach((el) => {
-      const maxTilt = el.classList.contains("card") || el.classList.contains("panel") ? 3 : 2;
-
-      el.addEventListener("pointermove", (event) => {
-        const rect = el.getBoundingClientRect();
-        const relX = (event.clientX - rect.left) / rect.width;
-        const relY = (event.clientY - rect.top) / rect.height;
-        const rotateY = (relX - 0.5) * maxTilt * 2;
-        const rotateX = (0.5 - relY) * maxTilt * 2;
-        el.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-1px)`;
-      });
-
-      el.addEventListener("pointerleave", () => {
-        el.style.transform = "";
+    pulseTargets.forEach((el) => {
+      el.addEventListener("click", () => {
+        animate(el, { scale: [1, 0.96, 1.03, 1] }, { duration: 0.36, ease: [0.34, 1.56, 0.64, 1] });
       });
     });
-
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        const x = (event.clientX / window.innerWidth) * 100;
-        const y = (event.clientY / window.innerHeight) * 100;
-        document.documentElement.style.setProperty("--mouse-x", `${x}%`);
-        document.documentElement.style.setProperty("--mouse-y", `${y}%`);
-      },
-      { passive: true }
-    );
+  } catch {
+    showWithoutMotion();
   }
-})();
+}

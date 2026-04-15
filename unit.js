@@ -6,6 +6,7 @@ function resolveUnit(param) {
     ALL_UNITS.find((u) => u.id === param) ||
     BTEC_UNITS.find((u) => String(u.number) === param || `btec-${u.number}` === param) ||
     HN_UNITS.find((u) => String(u.number) === param || `hn-${u.number}` === param) ||
+    EAL_UNITS.find((u) => String(u.number) === param || `eal-${u.number}` === param) ||
     BTEC_UNITS[0]
   );
 }

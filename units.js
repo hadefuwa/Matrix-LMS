@@ -78,6 +78,46 @@ const HN_UNIT_DEFS = [
   summary: `Higher National unit covering ${u.title.toLowerCase()}.`
 }));
 
+const EAL_UNIT_DEFS = [
+  { number: "001", title: "Engineering and Environmental Health and Safety", pathway: "Core Units (Mandatory)" },
+  { number: "002", title: "Engineering Organizational Efficiency and Improvement", pathway: "Core Units (Mandatory)" },
+  { number: "003", title: "Advanced Engineering Mathematics", pathway: "Core Units (Mandatory)" },
+  { number: "025", title: "Engineering Project", pathway: "Core Units (Mandatory)" },
+
+  { number: "005", title: "Properties and Applications of Engineering Materials", pathway: "Mechanical Engineering Pathway" },
+  { number: "006", title: "Further Mechanical Principles", pathway: "Mechanical Engineering Pathway" },
+  { number: "007", title: "Computer-Aided Design (CAD) Techniques", pathway: "Mechanical Engineering Pathway" },
+  { number: "010", title: "Computer Numerical Control (CNC) Machining", pathway: "Mechanical Engineering Pathway" },
+  { number: "011", title: "Primary Processes: Casting, Forging and Moulding", pathway: "Mechanical Engineering Pathway" },
+  { number: "012", title: "Secondary Processes: Machining", pathway: "Mechanical Engineering Pathway" },
+  { number: "013", title: "Fabrication and Welding Processes", pathway: "Mechanical Engineering Pathway" },
+  { number: "021", title: "Mechanical Engineering Principles", pathway: "Mechanical Engineering Pathway" },
+
+  { number: "004", title: "Electrical and Electronic Principles", pathway: "Electrical and Electronic Engineering Pathway" },
+  { number: "008", title: "Programmable Logic Controllers (PLCs)", pathway: "Electrical and Electronic Engineering Pathway" },
+  { number: "014", title: "Electrical Installation Methods and Techniques", pathway: "Electrical and Electronic Engineering Pathway" },
+  { number: "015", title: "Electrical Technology", pathway: "Electrical and Electronic Engineering Pathway" },
+  { number: "016", title: "Electronic Devices and Circuits", pathway: "Electrical and Electronic Engineering Pathway" },
+  { number: "017", title: "Digital Electronics", pathway: "Electrical and Electronic Engineering Pathway" },
+  { number: "018", title: "Power Electronics", pathway: "Electrical and Electronic Engineering Pathway" },
+  { number: "024", title: "Electronic Measurement and Testing", pathway: "Electrical and Electronic Engineering Pathway" },
+
+  { number: "009", title: "Maintenance of Fluid Power Systems and Components", pathway: "Maintenance Engineering Pathway" },
+  { number: "019", title: "Maintenance of Mechanical Systems and Components", pathway: "Maintenance Engineering Pathway" },
+  { number: "020", title: "Maintenance of Electrical Systems and Components", pathway: "Maintenance Engineering Pathway" },
+  { number: "022", title: "Engineering Maintenance Procedures and Techniques", pathway: "Maintenance Engineering Pathway" },
+  { number: "023", title: "Thermodynamic Principles and Applications", pathway: "Maintenance Engineering Pathway" },
+  { number: "026", title: "Monitoring and Fault Diagnosis of Engineering Systems", pathway: "Maintenance Engineering Pathway" },
+
+  { number: "027", title: "Industrial Robotics", pathway: "Additional Specialist Units" },
+  { number: "028", title: "Composites Manufacture and Repair", pathway: "Additional Specialist Units" },
+  { number: "029", title: "Business Improvement Techniques", pathway: "Additional Specialist Units" },
+  { number: "030", title: "Quality Control and Assurance in Engineering", pathway: "Additional Specialist Units" }
+].map((u) => ({
+  ...u,
+  summary: `${u.pathway}: ${u.title}.`
+}));
+
 const ASSET_IMAGES = [
   "assets/web/pexels-alshreef-36673118.webp",
   "assets/web/pexels-ferhat-kocakaya-218644751-33689077.webp",
@@ -106,18 +146,27 @@ function deterministicShuffle(items) {
 
 const SHUFFLED_ASSETS = deterministicShuffle(ASSET_IMAGES);
 
+const TRACK_LABELS = {
+  btec: "BTEC National",
+  hn: "Higher National",
+  eal: "EAL Level 3"
+};
+
 function buildUnits(defs, track) {
-  const qualification = track === "btec" ? "BTEC National" : "Higher National";
-  return defs.map((u, index) => ({
-    ...u,
-    id: `${track}-${u.number}`,
-    track,
-    qualification,
-    code: `Unit ${u.number}`,
-    image: SHUFFLED_ASSETS[index % SHUFFLED_ASSETS.length]
-  }));
+  return defs.map((u, index) => {
+    const rawNumber = String(u.number);
+    return {
+      ...u,
+      id: `${track}-${rawNumber}`,
+      track,
+      qualification: TRACK_LABELS[track],
+      code: `Unit ${rawNumber}`,
+      image: SHUFFLED_ASSETS[index % SHUFFLED_ASSETS.length]
+    };
+  });
 }
 
 const BTEC_UNITS = buildUnits(BTEC_UNIT_DEFS, "btec");
 const HN_UNITS = buildUnits(HN_UNIT_DEFS, "hn");
-const ALL_UNITS = [...BTEC_UNITS, ...HN_UNITS];
+const EAL_UNITS = buildUnits(EAL_UNIT_DEFS, "eal");
+const ALL_UNITS = [...BTEC_UNITS, ...HN_UNITS, ...EAL_UNITS];

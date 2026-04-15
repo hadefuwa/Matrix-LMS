@@ -461,6 +461,29 @@ li {
   background: #284463;
 }
 
+.course-panel {
+  background: radial-gradient(circle at top right, #2f6daa, #18283f 65%);
+}
+
+.course-btn {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.75rem 1.05rem;
+  border-radius: 0.65rem;
+  text-decoration: none;
+  font-weight: 800;
+  color: #ffffff;
+  border: 1px solid #a8dcff;
+  background: linear-gradient(135deg, #2f95ff, #1f6bd1);
+  box-shadow: 0 8px 22px rgba(41, 132, 225, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(41, 132, 225, 0.45);
+}
+
 .contact-panel a {
   color: #9fd0ff;
   text-decoration: none;

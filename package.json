@@ -1,0 +1,12 @@
+{
+  "name": "matrix-lms",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Matrix LMS prototype",
+  "scripts": {
+    "qa:responsive": "node scripts/responsive-check.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.54.1"
+  }
+}

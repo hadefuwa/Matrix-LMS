@@ -461,6 +461,15 @@ li {
   background: #284463;
 }
 
+.contact-panel a {
+  color: #9fd0ff;
+  text-decoration: none;
+}
+
+.contact-panel a:hover {
+  text-decoration: underline;
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
   color: var(--muted);
